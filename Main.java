@@ -12,6 +12,10 @@ public class Main {
 		model.changeCellState(2, 3);
 		model.changeCellState(4, 4);
 		model.changeCellState(4, 4);
+		for(int i=0;i<12;i++) {
+			System.out.println("board: "+i);
+			model.next();
+		}
 	}
 
 }
