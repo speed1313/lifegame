@@ -1,5 +1,6 @@
 package lifegame;
 import java.util.ArrayList;
+import java.util.LinkedList;
 //cellは行列で指定 ex) cells[2][3]なら2行３列
 /* 
  * 			cols
@@ -9,10 +10,12 @@ import java.util.ArrayList;
  * 		 V
  */
  class BoardModel {
-	private int cols;//horizontal
 	private int rows;//vertical
+	private int cols;//horizontal
+	
 	private boolean[][] cells;
 	private ArrayList<BoardListener> listeners;
+	private LinkedList<boolean[][]> boardHistoryList;
 	
 	public BoardModel(int r, int c) {
 		rows = r;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 		
 		cells = new boolean[rows][cols];
 		listeners = new ArrayList<BoardListener>();
+		boardHistoryList = new LinkedList<boolean[][]>();
 	}
 	
 	public int getCols() {
@@ -49,6 +53,7 @@ import java.util.ArrayList;
 	}
 	
 	public void changeCellState(int r, int c) {
+		registerBoard();
 		cells[r][c]=!cells[r][c];
 		this.fireUpdate();
 	}
@@ -62,7 +67,12 @@ import java.util.ArrayList;
 		}
 	}
 	
+	/*
+	 * セルの状態を更新する.
+	 */
 	public void next() {
+		
+		registerBoard();
 		boolean[][] nextCells = new boolean[rows][cols];
 		for(int r=0; r<rows; r++) {
 			for(int c=0; c<cols; c++) {
@@ -76,7 +86,33 @@ import java.util.ArrayList;
 		}
 		this.fireUpdate();
 		
+		
 	}
+	/*
+	 * 現在のboard状態を記録
+	 */
+	private void registerBoard() {
+		boolean[][] cellsForSave= new boolean[rows][cols];
+		for(int r=0; r<rows; r++) {
+			for(int c=0; c<cols; c++) {
+				cellsForSave[r][c]=cells[r][c];
+			}
+		}
+		if(boardHistoryList.isEmpty()) {
+			boardHistoryList.add(cellsForSave);
+			return;
+		}
+		else{
+			if(boardHistoryList.size()==32) {
+				boardHistoryList.removeFirst();
+			}
+			boardHistoryList.add(cellsForSave);//更新前の状態を記録
+		}
+	}
+	
+	/*
+	 * 次の状態の生死を返す. 
+	 */
 	private boolean nextCellState(int r,int c) {
 		int numAliveCells=0;
 		numAliveCells=countAliveCells(r,c);
@@ -98,6 +134,10 @@ import java.util.ArrayList;
 		}
 		
 	}
+	
+	/*
+	 * 周りの8コマに対して, 生存セル数を数える.
+	 */
 	private int countAliveCells(int r,int c) {
 		var drlist = new int[]{-1,0,1};
 		var dclist = new int[]{-1,0,1};
@@ -113,9 +153,28 @@ import java.util.ArrayList;
 			}		
 		}		
 		return numAliveCells;
-		
 	}
-	
+	/*
+	 * 状態の巻き戻し. 記憶する盤面数は32面まで(現在の盤面を含めず)
+	 */
+	public void undo() {
+		if(boardHistoryList.isEmpty()) {
+			System.out.println("can't undo. I have memorized only 32 board states. or it is up to date.");
+			this.fireUpdate();
+			return;
+		}
+		
+		cells=boardHistoryList.removeLast();
+		this.fireUpdate();
+	}
+	public boolean isUndoable() {
+		if(!boardHistoryList.isEmpty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	
 

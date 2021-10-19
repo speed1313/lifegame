@@ -1,5 +1,7 @@
 package lifegame;
 
+
+
 public class Main {
 	
 	public static void main(String[] args) {
@@ -12,9 +14,17 @@ public class Main {
 		model.changeCellState(2, 3);
 		model.changeCellState(4, 4);
 		model.changeCellState(4, 4);
-		for(int i=0;i<12;i++) {
+		model.changeCellState(11, 11);
+		model.changeCellState(11, 10);
+		model.changeCellState(10, 11);
+		model.changeCellState(10, 10);
+		for(int i=0;i<15;i++) {
 			System.out.println("board: "+i);
 			model.next();
+		}
+		while(model.isUndoable()) {
+			System.out.println("undo ");
+			model.undo();
 		}
 	}
 
