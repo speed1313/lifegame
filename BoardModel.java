@@ -73,10 +73,10 @@ import java.util.LinkedList;
 	public void next() {
 		
 		registerBoard();
-		boolean[][] nextCells = new boolean[rows][cols];
+		boolean[][] nextCells = new boolean[rows][cols];//tmporary next cells
 		for(int r=0; r<rows; r++) {
 			for(int c=0; c<cols; c++) {
-				nextCells[r][c]=nextCellState(r,c);
+				nextCells[r][c]=isNextAlive(r,c);
 			}
 		}
 		for(int r=0; r<rows; r++) {
@@ -113,7 +113,7 @@ import java.util.LinkedList;
 	/*
 	 * 次の状態の生死を返す. 
 	 */
-	private boolean nextCellState(int r,int c) {
+	private boolean isNextAlive(int r,int c) {
 		int numAliveCells=0;
 		numAliveCells=countAliveCells(r,c);
 		if(cells[r][c]==true) {
@@ -176,6 +176,12 @@ import java.util.LinkedList;
 		}
 	}
 	
+	public boolean isAlive(int row,int col) {
+		if(cells[row][col]) {
+			return true;
+		}
+		else return false;
+	}
 	
 
 }
