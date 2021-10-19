@@ -15,7 +15,7 @@ public class Main implements Runnable{
 	}
 	
 	public void run() {
-		BoardModel model = new BoardModel(12,12);
+		BoardModel model = new BoardModel(12,15);
 		model.addListener(new ModelPrinter());
 		model.changeCellState(1, 1);
 		model.changeCellState(2, 2);

@@ -21,15 +21,18 @@ public class BoardView extends JPanel{
 		int widthInterval = width/model.getCols();
 		int interval = Math.min(widthInterval,heightInterval);
 		
-		int leftMargin=(width-interval*cols)/2;
+		//隙間を上下左右分配させる
+		int leftMargin=(width-interval*cols)/2; 
 		int upperMargin=(height-interval*rows)/2;
 		
+		//原点調整と, interval
 		for(int r=0; r<=model.getRows();r++) {
 			for(int c=0;c<=model.getCols();c++) {
-				g.drawLine(leftMargin+0,upperMargin+interval*r,leftMargin+interval*rows,upperMargin+interval*r); //horizon line
+				g.drawLine(leftMargin+0,upperMargin+interval*r,leftMargin+interval*cols,upperMargin+interval*r); //horizon line
 				g.drawLine(leftMargin+interval*c,upperMargin+0,leftMargin+interval*c,upperMargin+interval*rows);//vertical line
 			}
 		}
+		//原点調整と, interval
 		for(int r=0; r<model.getRows();r++) {
 			for(int c=0;c<model.getCols();c++) {
 				if(model.isAlive(r,c)) {
