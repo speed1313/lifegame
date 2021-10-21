@@ -8,12 +8,15 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 public class BoardView extends JPanel
  	implements BoardListener, MouseListener, MouseMotionListener{
-	BoardModel model;
-	int rows;
-	int cols;
-	int interval;
-	int leftMargin;
-	int upperMargin;
+	private BoardModel model;
+	private int rows;
+	private int cols;
+	private int interval;
+	private int leftMargin;
+	private int upperMargin;
+	private int mouserow;
+	private int mousecol;
+
 	
 	public BoardView(BoardModel m) {
 		this.model=m;
@@ -55,9 +58,27 @@ public class BoardView extends JPanel
 	    this.interval = Math.min(widthInterval,heightInterval);//intervalは小さい方に合わせる(大きい方に合わせると, 小さい方がはみ出る)
 		
 		//隙間を上下左右分配させる
-		this.leftMargin=(width-interval*cols)/2; 
-		this.upperMargin=(height-interval*rows)/2;
+		this.leftMargin=(width-this.interval*this.cols)/2; 
+		this.upperMargin=(height-this.interval*this.rows)/2;
 	}
+	
+	
+	private void calcMousePoint(int x,int y) {
+		int fixedX = x - this.leftMargin;
+		int fixedY = y - this.upperMargin;
+		if((0<fixedX && fixedX<cols*interval) && (0<fixedY && fixedY<rows*interval)){//ふちは範囲外とする
+			this.mouserow= fixedY/this.interval;
+			this.mousecol= fixedX/this.interval;
+		}
+		else {
+			this.mouserow=-1;
+			this.mousecol=-1;
+		}
+		
+			
+		
+	}
+	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -75,11 +96,11 @@ public class BoardView extends JPanel
 	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
 		calcBoardCoordinate();
-		
+		calcMousePoint(e.getX(),e.getY());
     	System.err.println("Pressed: " + e.getX()+ ", " + e.getY());
- 
-    	model.changeCellState(1,1);
-		
+    	System.err.println("Pressed: " + this.mouserow + ", " + this.mousecol);
+    	this.model.changeCellState(this.mouserow, this.mousecol);
+    	this.repaint();
 	}
 
 	@Override
