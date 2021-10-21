@@ -53,9 +53,14 @@ import java.util.LinkedList;
 	}
 	
 	public void changeCellState(int r, int c) {
-		registerBoard();
-		cells[r][c]=!cells[r][c];
-		this.fireUpdate();
+		if((0<=r&&r<rows)&&(0<=c&&c<cols)) {
+			registerBoard();
+			cells[r][c]=!cells[r][c];
+			this.fireUpdate();
+		}
+		else {
+			System.out.print("can't change out-of-board cell");
+		}
 	}
 	
 	public void addListener(BoardListener listener) {

@@ -19,7 +19,7 @@ public class BoardView extends JPanel{
 		int height=this.getHeight();
 		int heightInterval = height/model.getRows();
 		int widthInterval = width/model.getCols();
-		int interval = Math.min(widthInterval,heightInterval);
+		int interval = Math.min(widthInterval,heightInterval);//intervalは小さい方に合わせる(大きい方に合わせると, 小さい方がはみ出る)
 		
 		//隙間を上下左右分配させる
 		int leftMargin=(width-interval*cols)/2; 
