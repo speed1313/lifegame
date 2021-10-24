@@ -16,6 +16,7 @@ public class BoardView extends JPanel
 	private int upperMargin;
 	private int mouserow;
 	private int mousecol;
+	private int[] pastMousePoint= new int[]{-1,-1};
 
 	
 	public BoardView(BoardModel m) {
@@ -62,7 +63,6 @@ public class BoardView extends JPanel
 		this.upperMargin=(height-this.interval*this.rows)/2;
 	}
 	
-	
 	private void calcMousePoint(int x,int y) {
 		int fixedX = x - this.leftMargin;
 		int fixedY = y - this.upperMargin;
@@ -73,17 +73,22 @@ public class BoardView extends JPanel
 		else {
 			this.mouserow=-1;
 			this.mousecol=-1;
-		}
-		
-			
-		
+		}	
 	}
-	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+		calcBoardCoordinate();
+		calcMousePoint(e.getX(),e.getY());
+    	System.err.println("Pressed: " + e.getX()+ ", " + e.getY());
+    	System.err.println("Pressed: " + this.mouserow + ", " + this.mousecol);
+    	if(this.pastMousePoint[0]==this.mouserow && this.pastMousePoint[1]==this.mousecol){
+    		return;
+    	}
+    	this.updatePastMousePoint(this.mouserow,this.mousecol);
+    	this.model.changeCellState(this.mouserow, this.mousecol);
+    	this.repaint();
 	}
 
 	@Override
@@ -95,42 +100,43 @@ public class BoardView extends JPanel
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		calcBoardCoordinate();
-		calcMousePoint(e.getX(),e.getY());
-    	System.err.println("Pressed: " + e.getX()+ ", " + e.getY());
-    	System.err.println("Pressed: " + this.mouserow + ", " + this.mousecol);
-    	this.model.changeCellState(this.mouserow, this.mousecol);
-    	this.repaint();
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+		calcBoardCoordinate();
+		calcMousePoint(e.getX(),e.getY());
+    	System.err.println("Pressed: " + e.getX()+ ", " + e.getY());
+    	System.err.println("Pressed: " + this.mouserow + ", " + this.mousecol);
+    	this.model.changeCellState(this.mouserow, this.mousecol);
+    	updatePastMousePoint(this.mouserow,this.mousecol);
+    	this.repaint();
 	}
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		
 	}
 
 	@Override
 	public void updated(BoardModel m) {
 		// TODO 自動生成されたメソッド・スタブ
-		
+	}
+	private void updatePastMousePoint(int row, int col) {
+    	this.pastMousePoint[0]=row;
+    	this.pastMousePoint[1]=col;
+    	return;
 	}
 
 
