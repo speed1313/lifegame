@@ -53,6 +53,7 @@ public class BoardView extends JPanel
 				}
 			}
 		}
+		//undoButtonの有効/無効化
 		changeUndoButtonState(this.undoButton);
 		
 		
@@ -60,6 +61,7 @@ public class BoardView extends JPanel
 
 
 	@Override
+	//
 	public void mouseDragged(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
 		calcBoardCoordinate();

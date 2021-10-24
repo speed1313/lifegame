@@ -8,6 +8,8 @@ import java.util.LinkedList;
  *  	 |
  * rows  |
  * 		 V
+ * 
+ * historyはnext()とchangeCellStateを行なった時更新
  */
  class BoardModel {
 	private int rows;//vertical

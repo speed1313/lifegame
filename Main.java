@@ -33,13 +33,15 @@ public class Main implements Runnable{
 		frame.setTitle("Lifegame");
 		
 		base.setLayout(new BorderLayout());
+		
+		//create view 
 		BoardView view = new BoardView(model);
 		base.add(view, BorderLayout.CENTER);
 		
 		JButton nextButton = new JButton("Next");
 		nextButton.setVerticalTextPosition(AbstractButton.CENTER);
-		nextButtonListener nListener = new nextButtonListener(model,view);
-		nextButton.addActionListener(nListener);
+		nextButtonListener nextListener = new nextButtonListener(model,view);
+		nextButton.addActionListener(nextListener);
 		
 		JButton undoButton = new JButton("Undo");
 		undoButton.setEnabled(false);
@@ -47,12 +49,19 @@ public class Main implements Runnable{
 		undoButtonListener uListener = new undoButtonListener(model,view);
 		undoButton.addActionListener(uListener);
 		
+		JButton newgameButton = new JButton("New Game");
+		newgameButton.setVerticalTextPosition(AbstractButton.CENTER);
+		newgameButtonListener newgameListener = new newgameButtonListener();
+		newgameButton.addActionListener(newgameListener);
+		
+		
 		JPanel buttonPanel = new JPanel();
 		
 		base.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout());
-		buttonPanel.add(undoButton, BorderLayout.WEST);
+		buttonPanel.add(undoButton, BorderLayout.CENTER);
 		buttonPanel.add(nextButton, BorderLayout.EAST);
+		buttonPanel.add(newgameButton, BorderLayout.WEST);
 		
 		view.setUndoButton(undoButton);
 		
