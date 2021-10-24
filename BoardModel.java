@@ -105,7 +105,6 @@ import java.util.LinkedList;
 		}
 		if(boardHistoryList.isEmpty()) {
 			boardHistoryList.add(cellsForSave);
-			return;
 		}
 		else{
 			if(boardHistoryList.size()==32) {
@@ -113,6 +112,7 @@ import java.util.LinkedList;
 			}
 			boardHistoryList.add(cellsForSave);//更新前の状態を記録
 		}
+		
 	}
 	
 	/*
@@ -171,6 +171,7 @@ import java.util.LinkedList;
 		
 		cells=boardHistoryList.removeLast();
 		this.fireUpdate();
+		return;
 	}
 	public boolean isUndoable() {
 		if(!boardHistoryList.isEmpty()) {

@@ -13,7 +13,7 @@ public class undoButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
-		model.undo();
+		this.model.undo();
 		view.repaint();
 		
 	}
