@@ -20,8 +20,8 @@ public class Main implements Runnable{
 	
 	public void run() {
 
-		int rows = 20;//default
-		int cols = 20;//defaul
+		int rows;
+		int cols;
 		
 		int cellsSize[] = setRowsAndCols();
 		rows = cellsSize[0];
@@ -61,6 +61,7 @@ public class Main implements Runnable{
 		newgameButton.addActionListener(newgameListener);
 		
 		
+		
 		JPanel buttonPanel = new JPanel();
 		
 		base.add(buttonPanel, BorderLayout.SOUTH);
@@ -79,7 +80,7 @@ public class Main implements Runnable{
 		
 	}
 	
-	private int[]setRowsAndCols() {
+	private int[] setRowsAndCols() {
 		int rows = 20;//default
 		int cols = 20;//defaul
 		int cellsSize[] = {20,20};
@@ -111,7 +112,6 @@ public class Main implements Runnable{
 			}  
 			catch (NumberFormatException e)  
 			{ 
-				
 				System.out.println(input_rows + " or " +  input_cols  + " is not a valid integer"); 
 				isInputValid = false;
 			} 
