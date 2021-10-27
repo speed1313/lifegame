@@ -77,15 +77,12 @@ public class BoardView extends JPanel
 	}
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 		calcBoardCoordinate();
 		calcMousePoint(e.getX(),e.getY());
     	System.err.println("Pressed coordinate: " + e.getX()+ ", " + e.getY());
@@ -97,22 +94,15 @@ public class BoardView extends JPanel
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
-
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
-
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
-
 	@Override
 	public void updated(BoardModel m) {
-		// TODO 自動生成されたメソッド・スタブ
 	}
 	private void changeUndoButtonState(JButton u){
 		if(this.model.isUndoable()) {
@@ -121,7 +111,6 @@ public class BoardView extends JPanel
 		else {
 			u.setEnabled(false);		}
 	}
-	
 	
 	private void calcBoardCoordinate() {
 		this.rows=model.getRows();

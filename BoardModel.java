@@ -96,6 +96,36 @@ import java.util.LinkedList;
 		
 	}
 	/*
+	 * 状態の巻き戻し. 記憶する盤面数は32面まで(現在の盤面を含めず)
+	 */
+	public void undo() {
+		if(boardHistoryList.isEmpty()) {
+			System.out.println("can't undo. I have memorized only 32 board states. or it is up to date.");
+			this.fireUpdate();
+			return;
+		}
+		
+		cells=boardHistoryList.removeLast();
+		this.fireUpdate();
+		return;
+	}
+	public boolean isUndoable() {
+		if(!boardHistoryList.isEmpty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isAlive(int row,int col) {
+		if(cells[row][col]) {
+			return true;
+		}
+		else return false;
+	}
+	
+	/*
 	 * 現在のboard状態を記録
 	 */
 	private void registerBoard() {
@@ -161,35 +191,7 @@ import java.util.LinkedList;
 		}		
 		return numAliveCells;
 	}
-	/*
-	 * 状態の巻き戻し. 記憶する盤面数は32面まで(現在の盤面を含めず)
-	 */
-	public void undo() {
-		if(boardHistoryList.isEmpty()) {
-			System.out.println("can't undo. I have memorized only 32 board states. or it is up to date.");
-			this.fireUpdate();
-			return;
-		}
-		
-		cells=boardHistoryList.removeLast();
-		this.fireUpdate();
-		return;
-	}
-	public boolean isUndoable() {
-		if(!boardHistoryList.isEmpty()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean isAlive(int row,int col) {
-		if(cells[row][col]) {
-			return true;
-		}
-		else return false;
-	}
+
 	
 
 }
