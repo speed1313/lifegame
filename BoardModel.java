@@ -124,7 +124,7 @@ import java.util.LinkedList;
 		}
 		else return false;
 	}
-	
+
 	/*
 	 * 現在のboard状態を記録
 	 */

@@ -100,8 +100,8 @@ public class Main implements Runnable{
 			{ 
 				nInput = Integer.parseInt(inputTarget); 
 				System.out.println(inputTarget + " is a valid integer"); 
-				if(!(1<=nInput && nInput <=100)) {
-					System.out.println("values must be integer 1 to 100.");
+				if(!(1<=nInput && nInput <=50)) {
+					System.out.println("values must be integer 1 to 50.");
 					isInputValid = false;
 				}
 				else{
