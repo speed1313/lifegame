@@ -81,27 +81,26 @@ public class Main implements Runnable{
 	}
 	
 	private int[] setRowsAndCols() {
-		int rows = 20;//default
-		int cols = 20;//defaul
 		int cellsSize[] = {20,20};
+		cellsSize[0]=getRowsOrCols("Rows");
+		cellsSize[1]=getRowsOrCols("Cols");
+		return  cellsSize;
+	}
+	private int getRowsOrCols(String target) {
+		int defaultnum = 20;
 		boolean isInputValid=false;
-		
+		int nInput=0;
+		//取り消しが押された場合default, それ以外はvalidな数字が得られるまで繰り返す
 		while(isInputValid==false) {
-			String input_rows = JOptionPane.showInputDialog("Please input rows of cells (values must be integer 1 to 100)");
-			if(input_rows == null) {
-				break;
-			}
-			String input_cols = JOptionPane.showInputDialog("Please input cols of cells (values must be integer 1 to 100)");
-			if(input_cols == null) {
-				break;
+			String inputTarget = JOptionPane.showInputDialog("Please input "+target+" of cells (values must be integer 1 to 100, default is 20)");
+			if(inputTarget == null) {
+				return defaultnum;
 			}
 			try 
 			{ 
-				rows = Integer.parseInt(input_rows); 
-				System.out.println(input_rows + " is a valid integer"); 
-				cols = Integer.parseInt(input_cols); 
-				System.out.println(input_cols + " is a valid integer"); 
-				if(!((1<=rows && rows <=100)&&(1<=cols && cols <=100))) {
+				nInput = Integer.parseInt(inputTarget); 
+				System.out.println(inputTarget + " is a valid integer"); 
+				if(!(1<=nInput && nInput <=100)) {
 					System.out.println("values must be integer 1 to 100.");
 					isInputValid = false;
 				}
@@ -112,13 +111,11 @@ public class Main implements Runnable{
 			}  
 			catch (NumberFormatException e)  
 			{ 
-				System.out.println(input_rows + " or " +  input_cols  + " is not a valid integer"); 
+				System.out.println(inputTarget + " is not a valid integer"); 
 				isInputValid = false;
 			} 
 		}
-		cellsSize[0]=rows;
-		cellsSize[1]=cols;
-		return  cellsSize;
+		return nInput;
 	}
 
 }
